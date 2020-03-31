@@ -1,0 +1,13 @@
+{
+  "name": "jeddah-light",
+  "description": "A tool based on google lighthouse and puppeteer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/brunosilvafreitas/jeddah-light.git",
+  "author": "Bruno Freitas <bruno.freitas@luizalabs.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lighthouse": "^5.6.0",
+    "puppeteer": "^2.1.1"
+  }
+}
