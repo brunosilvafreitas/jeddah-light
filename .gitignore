@@ -1,1 +1,5 @@
 node_modules/
+
+#skip output file, but keep folder
+.output/*
+!.gitkeep
