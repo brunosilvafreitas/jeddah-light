@@ -1,5 +1,5 @@
 module.exports = {
-  outputDir: '../.output',
+  outputDir: '.output',
   timezone: 'America/Sao_Paulo',
   lighthouse: [
     {
@@ -12,5 +12,16 @@ module.exports = {
       url: 'https://m.magazineluiza.com.br',
       emulatedFormFactor: 'mobile'
     }
-  ]
+  ],
+  minify: {
+    collapseBooleanAttributes: true,
+    collapseInlineTagWhitespace: true,
+    collapseWhitespace: true,
+    continueOnParseError: true,
+    minifyCSS: true,
+    minifyJS: true,
+    removeAttributeQuotes: true,
+    removeComments: true,
+    removeEmptyAttributes: true
+  }
 }

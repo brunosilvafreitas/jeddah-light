@@ -1,4 +1,4 @@
-const multiJob = async (func, jobs) => {
+const allSettledSync = async (func, jobs) => {
   jobs = jobs instanceof Array ? jobs : [jobs]
   const results = []
   for (let i = 0, count = jobs.length; i < count; i++) {
@@ -22,4 +22,4 @@ const multiJob = async (func, jobs) => {
   return results
 }
 
-module.exports = multiJob
+module.exports = allSettledSync

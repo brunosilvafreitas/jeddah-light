@@ -1,25 +1,23 @@
 const { minify } = require('html-minifier')
 const config = require('../config')
-const multiJob = require('./multiJob')
+const writeFile = require('./utils/writeFile')
+const datePath = require('./utils/datePath')
 const lighthouse = require('./lighthouse')
-const writeFile = require('./writeFile')
-const datePath = require('./datePath')
-const lighthouseSetup = require('./lighthouseSetup')
-const buildScore = require('./buildScore')
+const buildScore = require('./lighthouse/buildScore')
 
-const lighthouseConfig = lighthouseSetup(config.lighthouse)
-multiJob(lighthouse, lighthouseConfig)
+lighthouse(config.lighthouse)
   .then(async results => {
-    await Promise.all(results.map((res, resIndex) => {
+    await Promise.all(results.map(res => {
       if (res.status === 'fulfilled') {
+        const reportPath = datePath({ file: `${res.value.jobId}.html` })
         return Promise.all([
           writeFile(
-            datePath({ file: `${res.value.jobId}.html` }),
-            minify(res.value.report[0]), 'utf-8'
+            reportPath,
+            minify(res.value.report[0], config.minify), 'utf-8'
           ),
           writeFile(
             datePath({ file: `${res.value.jobId}_score.json` }),
-            JSON.stringify(buildScore(res.value.lhr)), 'utf-8'
+            JSON.stringify(buildScore({ ...res.value, reportPath })), 'utf-8'
           )
         ])
       } else {
