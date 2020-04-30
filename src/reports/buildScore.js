@@ -1,6 +1,14 @@
+const moment = require('moment-timezone')
+const { timezone } = require('../../config')
+
 const buildScore = ({ lhr, jobId, reportPath }) => {
+  const fetchTime = (timezone
+    ? moment(lhr.fetchTime).tz(timezone)
+    : moment(lhr.fetchTime)
+  ).format()
+
   return {
-    fetch_time: lhr.fetchTime,
+    fetch_time: fetchTime,
     console_erros: lhr.audits['errors-in-console'].numericValue,
     page_url: lhr.finalUrl,
     page_id: jobId,
